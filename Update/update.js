@@ -1,7 +1,7 @@
 const express = require('express')
 let mongodb = require('mongodb')
 
-const url = require('./urls')
+const url = require('../urls')
 //create mongo client
 let mcl = mongodb.MongoClient
 //create router instance

@@ -1,25 +1,26 @@
 const express = require('express')
 let mongodb = require('mongodb')
 
-const url = require('./urls')
+const url = require('../urls')
 //create mongo client
 let mcl = mongodb.MongoClient
 //create router instance
 let router = express.Router()
 //create rest api
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
+    let obj = req.body
     //connect to mongodb
     mcl.connect(url, (err, conn) => {
         if (err)
-            console.log('Error in connection')
+            console.log('Error in connection :- ', err)
         else {
             let db = conn.db('nodedb')
-            db.collection('Products').find().toArray((err, array) => {
+            db.collection('Products').insertOne(obj, (err) => {
                 if (err)
-                    console.log('Error:- ', err)
+                    res.json({ 'insert': 'Error ' + err })
                 else {
-                    console.log('Data Sent')
-                    res.json(array)
+                    console.log("Data inserted")
+                    res.json({ 'insert': 'success' })
                     conn.close()
                 }
             })
