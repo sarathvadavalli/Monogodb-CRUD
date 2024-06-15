@@ -6,6 +6,7 @@ const url = require('../urls')
 let mcl = mongodb.MongoClient
 //create router instance
 let router = express.Router()
+
 //create rest api
 router.put("/", (req, res) => {
     let p_id = req.body.p_id
@@ -13,13 +14,14 @@ router.put("/", (req, res) => {
         p_name: req.body.p_name,
         p_cost: req.body.p_cost
     }
+ 
     //connect to mongodb
     mcl.connect(url, (err, conn) => {
         if (err)
             console.log('Error in connection :- ', err)
         else {
             let db = conn.db('nodedb')
-            db.collection('Products').updateOne({ p_id }, { $set: obj }, (err, result) => {
+            db.collection('products').updateOne({ p_id }, { $set: obj }, (err, result) => {
                 if (err)
                     res.json({ 'update': 'Error ' + err })
                 else{

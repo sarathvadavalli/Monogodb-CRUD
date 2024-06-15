@@ -15,7 +15,7 @@ router.post("/", (req, res) => {
             console.log('Error in connection :- ', err)
         else {
             let db = conn.db('nodedb')
-            db.collection('Products').insertOne(obj, (err) => {
+            db.collection('products').insertOne(obj, (err) => {
                 if (err)
                     res.json({ 'insert': 'Error ' + err })
                 else {
